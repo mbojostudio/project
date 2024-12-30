@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Loading</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background-color: #0e182a;
+      font-family: Arial, sans-serif;
+    }
+
+    .loading-container {
+      text-align: center;
+    }
+
+    .loading-bar {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .dot {
+      width: 10px;
+      height: 10px;
+      background-color: #1877f2;
+      border-radius: 50%;
+      animation: bounce 1.5s infinite ease-in-out;
+    }
+
+    .dot:nth-child(2) {
+      animation-delay: 0.3s;
+    }
+
+    .dot:nth-child(3) {
+      animation-delay: 0.6s;
+    }
+
+    @keyframes bounce {
+      0%, 80%, 100% {
+        transform: scale(0);
+      }
+      40% {
+        transform: scale(1);
+      }
+    }
+
+    #offlineMessage {
+      position: fixed;
+      bottom: -50px;
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: red;
+      color: white;
+      padding: 10px 20px;
+      border-radius: 5px;
+      font-size: 14px;
+      font-weight: bold;
+      animation: slideUp 1s forwards;
+    }
+
+    @keyframes slideUp {
+      from {
+        bottom: -50px;
+      }
+      to {
+        bottom: 20px;
+      }
+    }
+  
+  .logo {
+            border-radius: 50%;
+            width: 150px;
+            height: 150px;
+            margin: 30px 0;
+        }
+  </style>
+</head>
+<body>
+  
+  <div class="loading-container">
+    <img src="images.jpeg" width="62" alt="tic" class="logo"/>
+      
+    <div class="loading-bar">
+      <div class="dot"></div>
+      <div class="dot"></div>
+      <div class="dot"></div>
+    </div>
+  </div>
+  
+  <footer id="offlineMessage" style="display: none;">Anda sedang offline</footer>
+
+  <script>
+    const isLoggedIn = localStorage.getItem('userId'); // Simulate logged-in status
+
+    function checkConnection() {
+      if (navigator.onLine) {
+        // Jika online, arahkan ke halaman sesuai status login
+        if (isLoggedIn) {
+          window.location.href = 'coba.html';
+        } else {
+          window.location.href = 'login.html';
+        }
+      } else {
+        // Jika offline, tampilkan pesan dengan animasi
+        const offlineMessage = document.getElementById('offlineMessage');
+        offlineMessage.style.display = 'block';
+      }
+    }
+
+    // Periksa koneksi secara berkala
+    setTimeout(checkConnection, 2000); // Periksa setelah 2 detik
+    setInterval(() => {
+      if (!navigator.onLine) {
+        const offlineMessage = document.getElementById('offlineMessage');
+        offlineMessage.style.display = 'block';
+      } else {
+        location.reload(); // Muat ulang jika online
+      }
+    }, 5000); // Periksa setiap 5 detik
+  </script>
+</body>
+</html>

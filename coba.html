@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Navbar Bootstrap</title>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.1/css/all.min.css">
+    <style>
+        body {
+            background-color: #222;
+            color: #fff;
+            margin: 0; /* Menghilangkan margin default */
+            padding: 0; /* Menghilangkan padding default */
+        }
+
+        /* Navbar Atas */
+        .navbar-top {
+            background-color: #1c1c1c;
+            padding: 5px; /* Hapus padding kanan kiri untuk rapat */
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+            margin-top: -80px;
+        }
+
+        .navbar-top .navbar-brand {
+            font-size: 20px;
+            font-weight: bold;
+            color: #fff;
+            margin: 0; /* Menghilangkan margin */
+        }
+
+        .navbar-top .icon-circle {
+            width: 35px;
+            height: 35px;
+            background-color: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #fff;
+            margin-left: 10px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .navbar-top .icon-circle:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+
+        /* Navbar Bawah */
+        .navbar-bottom {
+            background-color: #1c1c1c;
+            padding: 5px; /* Menghilangkan jarak */
+            box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.3);
+            margin-top: -37px; /* Menghilangkan margin top */
+            position: fixed;
+            z-index: 4;
+            
+            
+        }
+
+        .navbar-bottom .col {
+            padding: 0; /* Menghilangkan padding pada setiap kolom */
+        }
+
+        .navbar-bottom a {
+            color: #888;
+            text-decoration: none;
+            font-size: 24px;
+            transition: color 0.3s;
+        }
+
+        .navbar-bottom a.active {
+            color: #1877f2; /* Warna biru untuk ikon aktif */
+        }
+
+        .navbar-bottom a:hover {
+            color: #fff;
+        }
+
+        /* Input Box */
+        .input-box {
+           
+            background-color: #1c1c1c;
+            padding: 15px;
+            display: flex;
+            align-items: center;
+            margin: 0 0 10 0; /* Menghilangkan margin kiri dan kanan */
+            margin-top: 80px;
+        }
+
+        .input-box img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            margin-right: 10px;
+            
+        }
+
+        .input-box input {
+            background-color: #333;
+            border: none;
+            color: #fff;
+            width: 100%;
+            outline: none;
+            padding: 10px 10px; /* Menambahkan padding di dalam input */
+            border-radius: 30px; /* Border radius hanya diterapkan pada input */
+        }
+
+        .input-box i {
+            color: #28a745;
+            font-size: 24px;
+            margin-left: 10px;
+            
+        }
+    
+        .card-custom {
+      background-color: #1c1c1c;
+      color: #fff;
+    }
+    .image-preview {
+      max-width: 100%;
+      max-height: 300px;
+    }
+    .action-buttons {
+      display: flex;
+      justify-content: space-between;
+      padding: 10px 0;
+      border-top: 1px solid #444;
+      margin-top: 10px;
+    }
+    .action-buttons .icon-btn{
+      color: #fff;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+    .icon-btn:hover {
+      color: #007bff;
+    }
+    .profile-image {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+    }
+     #offlineMessage {
+      position: fixed;
+      bottom: -50px;
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: red;
+      color: white;
+      padding: 10px 20px;
+      border-radius: 5px;
+      font-size: 14px;
+      font-weight: bold;
+      animation: slideUp 1s forwards;
+    }
+
+    @keyframes slideUp {
+      from {
+        bottom: -50px;
+      }
+      to {
+        bottom: 20px;
+      }
+    }
+    
+    
+    </style>
+</head>
+<body>
+    <div style="position: fixed; z-index: 4;">
+    <!-- Navbar Atas -->
+    <nav class="navbar container navbar-expand-lg navbar-top" style="position: fixed;">
+        <div class="container-fluid">
+            <!-- Logo -->
+            <a class="navbar-brand" href="#">Teras Ilmu Center</a>
+            <!-- Ikon di Kanan -->
+            <div class="d-flex">
+                <div class="icon-circle">
+                    <i class="fa-solid fa-magnifying-glass"></i> <!-- Ikon Search -->
+                </div>
+                <div class="icon-circle">
+                    <i class="fa-solid fa-bars"></i> <!-- Ikon Menu -->
+                </div>
+            </div>
+        </div>
+    </nav>
+</div>
+    <!-- Navbar Bawah -->
+    
+    <div class="container navbar-bottom" >
+        <div class="row text-center">
+            <div class="col">
+                <a href="#" class="active"><i class="fa-solid fa-house"></i></a>
+            </div>
+            <div class="col">
+                <a href="#"><i class="fa-solid fa-users"></i></a>
+            </div>
+            <div class="col">
+                <a href="#"><i class="fa-brands fa-facebook-messenger"></i></a>
+            </div>
+            <div class="col">
+                <a href="#"><i class="fa-solid fa-bell"></i></a>
+            </div>
+            <div class="col">
+                <a href="#"><i class="fa-solid fa-tv"></i></a>
+            </div>
+            <div class="col">
+                <a href="#"><i class="fa-solid fa-store"></i></a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Input Box -->
+    <div class="mt-1">
+        <div class="input-box">
+            <a href="profile.html"><label><img id="profile-picture" src="images.png" alt="Profile Picture"></label></a>
+            <a href="welcomen.html"><input type="text" placeholder="Apa yang Anda pikirkan?" readonly></a>
+            <i class="fas fa-image"></i>
+        </div>
+    </div>
+    <span id="username"></span>
+
+    <div class="col">
+      <div id="postContainer"></div>
+    </div>
+  
+<footer id="offlineMessage" style="display: none;">Anda sedang offline</footer>
+
+    <!-- Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+      const userId = localStorage.getItem('userId');
+      const userName = localStorage.getItem('userName');
+
+      if (!userId || !userName) {
+          window.location.href = 'login.html'; // Redirect jika tidak login
+      } else {
+          
+
+          // Fetch gambar profil dari server
+          fetch(`https://server-three-rose.vercel.app/users/${userId}/profile-picture`)
+             .then((response) => {
+                 if (!response.ok) {
+                 throw new Error('Failed to fetch profile picture.');
+               }
+               return response.blob();
+             })
+             .then((blob) => {
+               const imageUrl = URL.createObjectURL(blob);
+               document.getElementById('profile-picture').src = imageUrl;
+             })
+             .catch((error) => {
+               console.error('Error fetching profile picture:', error);
+               document.getElementById('profile-picture').src = 'images.png'; // Gambar default
+             });
+         }
+    
+    const SERVER_URL = 'https://server-three-rose.vercel.app/api';
+  
+    async function loadPosts() {
+      try {
+        const response = await fetch(`${SERVER_URL}/posts`);
+        if (!response.ok) {
+          throw new Error('Gagal memuat postingan.');
+        }
+  
+        const posts = await response.json();
+        const postContainer = document.getElementById('postContainer');
+  
+        posts.forEach((post) => {
+          const postElement = document.createElement('div');
+          postElement.className = 'card card-custom p-3 mt-1';
+  
+          postElement.innerHTML = `
+            <div class="d-flex align-items-center">
+              <img src="${post.profilePicture}" alt="${post.username}" class="rounded-circle profile-image me-3">
+              <div class=" col">
+                <h5 class="m-0">${post.username}</h5>
+                <small style="color: #555">${new Date(post.timestamp).toLocaleString()}</small>
+              </div>
+              <div>
+                <small onclick="openDropdownModal()" class="text-end text-bold">...</small>
+              </div>
+            </div>
+            <div class="mt-3">
+              <p>${post.content}</p>
+              ${post.image ? `<img src="${post.image}" alt="Post Image" class="img-fluid">` : ''}
+            </div>
+            <div class="action-buttons">
+               <span class="icon-btn" onclick="handleLike('${post.id}')">
+                 <i class="fas fa-thumbs-up"></i> <span id="like-count-${post.id}">${post.likes} Likes</span>
+               </span>
+               <span class="icon-btn" onclick="handleComment('${post.id}')">
+                 <i class="fas fa-comment"></i> Comment
+               </span>
+               <span class="icon-btn" onclick="handleShare('${post.id}')">
+                 <i class="fas fa-share"></i> Share
+               </span>
+             </div>
+          `;
+  
+          postContainer.appendChild(postElement);
+        });
+      } catch (error) {
+        console.error(error);
+        const offlineMessage = document.getElementById('offlineMessage');
+        offlineMessage.style.display = 'block';
+      }
+    }
+  
+async function handleLike(postId) {
+  const userId = getUserId(); // Dapatkan ID pengguna unik
+
+  try {
+    const response = await fetch('https://server-three-rose.vercel.app/like', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ postId, userId }),
+    });
+
+    const data = await response.json();
+    if (!response.ok) {
+      alert(data.message);
+    } else {
+      const likeCountElement = document.getElementById(`like-count-${postId}`);
+      const currentLikes = parseInt(likeCountElement.textContent.split(' ')[0], 10);
+
+      if (data.message === 'Like berhasil ditambahkan.') {
+        likeCountElement.textContent = `${currentLikes + 1} Likes`;
+      } else if (data.message === 'Like dibatalkan.') {
+        likeCountElement.textContent = `${currentLikes - 1} Likes`;
+      }
+
+      
+    }
+  } catch (error) {
+    console.error(error);
+     const offlineMessage = document.getElementById('offlineMessage');
+     offlineMessage.style.display = 'block';
+  }
+}
+
+// Fungsi untuk mendapatkan ID pengguna unik
+function getUserId() {
+  // Contoh: Mengambil dari LocalStorage atau sejenisnya
+  let userId = localStorage.getItem('userId');
+  if (!userId) {
+    userId = `user-${Date.now()}-${Math.random().toString(36).substring(2, 9)}`;
+    localStorage.setItem('userId', userId);
+  }
+  return userId;
+}
+
+    function handleComment(postId) {
+      alert(`masih Palam Proses Pengembangan:`);
+    }
+  
+    function handleShare(postId) {
+      alert(`Masih Dalam Proses Pengembangan:`);
+    }
+  
+    loadPosts();
+    
+    
+
+  
+ 
+    </script>
+    
+    
+</body>
+</html>

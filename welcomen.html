@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Form Postingan</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css">
+  <style>
+    .card-custom {
+      background-color: #333;
+      color: #fff;
+    }
+  .profile-image {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+    }
+  </style>
+</head>
+<body class="bg-dark">
+  <div class="container mt-5">
+    <div class="card card-custom p-3">
+      <div class="d-flex align-items-center">
+        <img id="profile-picture" src="images.png" alt="Profile Picture" class="rounded-circle profile-image me-3">
+        <div>
+          <h5 id="username" class="m-0"></h5>
+        </div>
+      </div>
+      <div class="mt-3">
+        <textarea class="form-control bg-dark text-white" id="postContent" rows="3" placeholder="Apa yang Anda pikirkan?"></textarea>
+      </div>
+      <div class="mt-3">
+        <input type="file" class="form-control bg-dark text-white" id="postImage" accept="image/*">
+      </div>
+      <div class="mt-4">
+        <button class="btn btn-primary w-100" onclick="post()">POSTING</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const userId = localStorage.getItem('userId');
+    const userName = localStorage.getItem('userName');
+  
+   
+
+      if (!userId || !userName) {
+          window.location.href = 'login.html'; // Redirect jika tidak login
+      } else {
+        document.getElementById('username').textContent = userName;
+
+          // Fetch gambar profil dari server
+          fetch(`https://server-three-rose.vercel.app/users/${userId}/profile-picture`)
+             .then((response) => {
+                 if (!response.ok) {
+                 throw new Error('Failed to fetch profile picture.');
+               }
+               return response.blob();
+             })
+             .then((blob) => {
+               const imageUrl = URL.createObjectURL(blob);
+               document.getElementById('profile-picture').src = imageUrl;
+             })
+             .catch((error) => {
+               console.error('Error fetching profile picture:', error);
+               document.getElementById('profile-picture').src = 'images.png'; // Gambar default
+             });
+         }
+    
+    
+    
+       
+  
+  
+  
+    // Fungsi untuk membuat postingan
+  const SERVER_URL = 'https://server-three-rose.vercel.app/api';
+
+  async function post() {
+    const content = document.getElementById('postContent').value;
+    const imageInput = document.getElementById('postImage');
+    const file = imageInput.files[0];
+
+    if (!content && !file) {
+      alert('Teks atau gambar harus diisi!');
+      return;
+    }
+
+    let imageData = '';
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = async function (event) {
+        imageData = event.target.result;
+        await savePost(content, imageData);
+      };
+      reader.readAsDataURL(file);
+    } else {
+      await savePost(content, imageData);
+    }
+  }
+
+  async function savePost(content, image) {
+    const userId = localStorage.getItem('userId');
+
+    if (!userId) {
+      alert('Anda harus login untuk membuat postingan!');
+      return;
+    }
+
+    try {
+      const response = await fetch(`${SERVER_URL}/post`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ userId, content, image }),
+      });
+
+      if (!response.ok) {
+        const { message } = await response.json();
+        throw new Error(message);
+      }
+
+      alert('Postingan berhasil dibuat!');
+      window.location.href = 'coba.html';
+    } catch (error) {
+      console.error(error);
+      alert('Terjadi kesalahan saat membuat postingan.');
+    }
+  }
+
+  </script>
+</body>
+</html>

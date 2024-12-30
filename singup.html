@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Signup dengan Show Password</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.1/css/all.min.css">
+    <style>
+        body {
+            background-color: #222;
+            color: #fff;
+        }
+        .card {
+            background-color: #333;
+            color: #fff;
+            border: none;
+        }
+        .form-control, .form-select {
+            background-color: #444;
+            color: #fff;
+            border: 1px solid #555;
+        }
+        .form-control::placeholder, 
+        .form-select option {
+            color: #ccc;
+        }
+        .form-check-label {
+            color: #ccc;
+        }
+        .btn-primary {
+            background-color: #1877f2;
+            border-color: #1877f2;
+        }
+        .btn-primary:hover {
+            background-color: #155bc1;
+            border-color: #155bc1;
+        }
+        .btn-outline-secondary {
+            color: #ccc;
+            border-color: #555;
+        }
+        .btn-outline-secondary:hover {
+            background-color: #555;
+            color: #fff;
+        }
+  .success-message {
+     font-size: 24px;
+    padding: 50px 10px;
+    border-radius: 30px;
+    position: absolute; /* Tetap absolute */
+    top: 50%; /* Posisikan di tengah vertikal */
+    left: 50%; /* Posisikan di tengah horizontal */
+    transform: translate(-50%, -50%); /* Sesuaikan agar elemen benar-benar di tengah */
+    background-color: #555;
+    color: green;
+    text-align: center;
+    margin-top: 20px;
+    z-index: 1000; /* Angka tinggi untuk di atas elemen lain */
+    display: none; /* Pastikan elemen terlihat */
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); /* Opsional: Beri efek bayangan */
+}
+
+    </style>
+</head>
+<body>
+    <div class="container d-flex justify-content-center align-items-center" style="height: 100vh;">
+        <div class="card p-4 shadow" style="width: 100%; max-width: 500px;">
+            <h2 class="text-center mb-4">Buat Akun</h2>
+            <form id="signupForm">
+                <!-- Email -->
+                <div class="mb-3">
+                    <label for="email" class="form-label">Email</label>
+                    <input type="email" class="form-control" id="singupEmail" name="email" placeholder="Masukkan email" required>
+                </div>
+                <!-- Username -->
+                <div class="mb-3">
+                    <label for="username" class="form-label">Username</label>
+                    <input type="text" class="form-control" id="singupUsername" name="username" placeholder="Masukkan username" required>
+                </div>
+                <!-- Tanggal Lahir -->
+                <div class="mb-3">
+                    <label class="form-label">Tanggal Lahir</label>
+                    <div class="row">
+                        <div class="col-4">
+                            <select class="form-select" id="tanggal" name="day" required>
+                                <option value="" disabled selected>Hari</option>
+                                <script>
+                                    for (let i = 1; i <= 31; i++) {
+                                        document.write(`<option value="${i}">${i}</option>`);
+                                    }
+                                </script>
+                            </select>
+                        </div>
+                        <div class="col-4">
+                            <select class="form-select" id="bulan" name="month" required>
+                                <option value="" disabled selected>Bulan</option>
+                                <option value="1">Januari</option>
+                                <option value="2">Februari</option>
+                                <option value="3">Maret</option>
+                                <option value="4">April</option>
+                                <option value="5">Mei</option>
+                                <option value="6">Juni</option>
+                                <option value="7">Juli</option>
+                                <option value="8">Agustus</option>
+                                <option value="9">September</option>
+                                <option value="10">Oktober</option>
+                                <option value="11">November</option>
+                                <option value="12">Desember</option>
+                            </select>
+                        </div>
+                        <div class="col-4">
+                            <select class="form-select" id="tahun" name="year" required>
+                                <option value="" disabled selected>Tahun</option>
+                                <script>
+                                    const currentYear = new Date().getFullYear();
+                                    for (let i = currentYear; i >= 1900; i--) {
+                                        document.write(`<option value="${i}">${i}</option>`);
+                                    }
+                                </script>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <!-- Gender -->
+                <div class="mb-3">
+                    <label class="form-label">Jenis Kelamin</label>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="gender" id="male" value="Laki-laki" required>
+                        <label class="form-check-label" for="male">Laki-laki</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="gender" id="female" value="Perempuan">
+                        <label class="form-check-label" for="female">Perempuan</label>
+                    </div>
+                </div>
+                <!-- Kata Sandi -->
+                <div class="mb-3">
+                    <label for="password" class="form-label">Kata Sandi</label>
+                    <div class="input-group">
+                        <input type="password" class="form-control" id="singupPassword" name="password" placeholder="Masukkan kata sandi" required>
+                        <span class="input-group-text" onclick="togglePassword('singupPassword', this)">
+                            <i class="fas fa-eye"></i>
+                        </span>
+                    </div>
+                </div>
+                <!-- Konfirmasi Sandi -->
+                <div class="mb-3">
+                    <label for="confirm_password" class="form-label">Konfirmasi Kata Sandi</label>
+                    <div class="input-group">
+                        <input type="password" class="form-control" id="confirm_password" name="confirm_password" placeholder="Konfirmasi kata sandi" required>
+                        <span class="input-group-text" onclick="togglePassword('confirm_password', this)">
+                            <i class="fas fa-eye"></i>
+                        </span>
+                    </div>
+                </div>
+                <!-- Pesan -->
+                <div id="message" class="mb-3 text-center"></div>
+                <p class="success-message" id="success-message">Akun berhasil dibuat! silahkan login</p>
+                <!-- Submit Button -->
+                <button type="submit" class="btn btn-primary w-100">Daftar</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/js/all.min.js"></script>
+    <script>
+        function togglePassword(id, element) {
+            const input = document.getElementById(id);
+            const icon = element.querySelector("i");
+            if (input.type === "password") {
+                input.type = "text";
+                icon.classList.remove("fa-eye");
+                icon.classList.add("fa-eye-slash");
+            } else {
+                input.type = "password";
+                icon.classList.remove("fa-eye-slash");
+                icon.classList.add("fa-eye");
+            }
+        }
+        
+  const form = document.getElementById("signupForm");
+
+  form.addEventListener("submit", async (event) => {
+    event.preventDefault();
+
+    const email = document.getElementById("singupEmail").value;
+    const username = document.getElementById("singupUsername").value;
+    const password = document.getElementById("singupPassword").value;
+    const confirmPassword = document.getElementById('confirm_password').value;
+    const message = document.getElementById('message');
+
+    if (password !== confirmPassword) {
+      message.style.color = 'red';
+      message.textContent = 'Kata sandi tidak cocok!';
+      return;
+    }
+
+    try {
+      const response = await fetch("https://server-three-rose.vercel.app/signup", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email, username, password }),
+      });
+
+      const result = await response.json();
+      if (response.ok) {
+        message.style.color = 'green';
+        message.textContent = result.message;
+        
+        // Tunggu 2 detik, lalu arahkan ke login.html
+        setTimeout(() => {
+          window.location.href = 'login.html';
+        }, 2000);
+        
+      } else {
+        message.style.color = 'red';
+        message.textContent = result.message || 'Gagal mendaftar.';
+      }
+    } catch (error) {
+      console.error('Error:', error);
+      message.style.color = 'red';
+      message.textContent = 'Terjadi kesalahan.';
+    }
+  });
+
+ 
+    </script>
+</body>
+</html>
