@@ -223,6 +223,15 @@ editProfileForm.addEventListener('submit', async (event) => {
       alert("Logout berhasil!");
       window.location.href = "login.html";
     });
+
+  document.addEventListener('DOMContentLoaded', function () {
+    const fileInput = document.querySelector('input[type="file"]');
+    if (fileInput) {
+      fileInput.addEventListener('click', function () {
+        window.FilePickerChannel.postMessage(fileInput.id);
+      });
+    }
+  });
   </script>
 </body>
 </html>
