@@ -227,23 +227,19 @@ editProfileForm.addEventListener('submit', async (event) => {
   document.addEventListener('DOMContentLoaded', function () {
     const fileInput = document.querySelector('input[type="file"]');
     if (fileInput) {
-      fileInput.addEventListener('change', function (event) {
-        const file = event.target.files[0];
-        if (file) {
-          // Kirim data file ke Flutter melalui channel
-          if (window.FilePickerChannel) {
-            window.FilePickerChannel.postMessage({
-              id: fileInput.id,
-              name: file.name,
-              size: file.size,
-              type: file.type
-            });
-          } else {
-            console.log('FilePickerChannel tidak ditemukan');
-          }
-        }
+      fileInput.addEventListener('click', function () {
+        window.FilePickerChannel.postMessage(fileInput.id);
       });
     }
+
+    // Fungsi untuk menerima file dari Dart dan memperbarui input file
+    window.receiveFile = function (fileName, fileContent) {
+      const file = new File([fileContent], fileName, { type: "image/*" });
+      const dataTransfer = new DataTransfer();
+      dataTransfer.items.add(file);
+      fileInput.files = dataTransfer.files;
+      console.log('File received and set:', file);
+    };
   });
   </script>
 </body>
